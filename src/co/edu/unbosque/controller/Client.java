@@ -1,5 +1,5 @@
 package co.edu.unbosque.controller;
 
-public class APLMain {
+public class Client {
 
 }

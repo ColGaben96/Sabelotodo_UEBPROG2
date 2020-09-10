@@ -8,6 +8,9 @@ import java.util.Scanner;
  */
 public class Controller {
 	
+	private Client client = new Client();
+	private Server server = new Server();
+	
 	/**
 	 * <h1>Description</h1>
 	 * <p>Method for <b>debugging</b> purposes</p>
@@ -54,7 +57,7 @@ public class Controller {
 	 * @author Gabriel Blanco
 	 */
 	public void startClient() {
-		//TODO: Poner el cliente aqui
+		client.run();
 	}
 	
 	/**
@@ -63,6 +66,6 @@ public class Controller {
 	 * @author Gabriel Blanco
 	 */
 	public void startServer() {
-		//TODO: Poner el servidor aquí.
+		server.run();
 	}
 }

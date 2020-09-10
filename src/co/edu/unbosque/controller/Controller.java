@@ -2,8 +2,17 @@ package co.edu.unbosque.controller;
 
 import java.util.Scanner;
 
+/**
+ * @author Gabriel Blanco - Juan Pablo Araque
+ * @version 1.0
+ */
 public class Controller {
 	
+	/**
+	 * <h1>Description</h1>
+	 * <p>Method for <b>debugging</b> purposes</p>
+	 * @author Gabriel Blanco
+	 */
 	public void start() {
 		Scanner sc = new Scanner(System.in);
 		var active = true;
@@ -20,8 +29,16 @@ public class Controller {
 					sc.close();
 					break;
 				case 1:
+					//Se va a solicitar crear un nuevo hilo por cliente.
+					//Debe estar el srv activo antes de crear un cliente.
+					Thread thread = new Thread(() -> {
+						startClient();
+					});
+					thread.start();
 					break;
 				case 2:
+					//No se solicita crear un nuevo hilo, ya que la ejecución del srv es por aparte.
+					startServer();
 					break;
 				}
 			} catch (Exception e) {
@@ -31,11 +48,21 @@ public class Controller {
 		}
 	}
 	
+	/**
+	 * <h1>Description</h1>
+	 * <p>Method to start <b>client</b></p>
+	 * @author Gabriel Blanco
+	 */
 	public void startClient() {
-		
+		//TODO: Poner el cliente aqui
 	}
 	
+	/**
+	 * <h1>Description</h1>
+	 * <p>Method to start <b>server</b></p>
+	 * @author Gabriel Blanco
+	 */
 	public void startServer() {
-		
+		//TODO: Poner el servidor aquí.
 	}
 }

@@ -1,0 +1,10 @@
+package co.edu.unbosque.view;
+
+import javax.swing.JFrame;
+
+public class View_ganador extends JFrame{
+
+	public View_ganador() {
+		
+	}
+}

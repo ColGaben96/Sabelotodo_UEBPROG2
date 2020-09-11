@@ -52,6 +52,7 @@ public class Controller {
 			                myIP.openStream()));
 					String ip = in.readLine();
 					System.out.println(ip);
+					System.out.println("Holis");
 					break;
 				}
 			} catch (Exception e) {

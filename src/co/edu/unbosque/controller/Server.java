@@ -18,7 +18,7 @@ public class Server {
 	private DataOutputStream out = null;
 	private final int port = 8080;
 	
-	public String getStatus(int status) {
+	public String getStatusMessage(int status) {
 		String message = null;
 		switch(status) {
 		case 0:
@@ -63,23 +63,18 @@ public class Server {
 		try {
 			ssocket = new ServerSocket(port);
 			socket = new Socket(ssocket.getInetAddress(), port);
+			socket = ssocket.accept();
+			System.out.println(getStatusMessage(3)+" from "+ssocket.getInetAddress().getHostAddress()+":"+port);
+			out.writeUTF(getStatusMessage(3)+" from "+ssocket.getInetAddress().getHostAddress()+":"+port);
 			in = new DataInputStream(socket.getInputStream());
 			out = new DataOutputStream(socket.getOutputStream());
-			out.writeUTF(getStatus(200));
-			System.out.println(getStatus(200)+". Please tell your friends to connect to "+checkIP()+":"+port);
+			out.writeUTF(getStatusMessage(200)+". Please tell your friends to connect to "+checkIP()+":"+8888);
+			System.out.println(getStatusMessage(200)+". Please tell your friends to connect to "+checkIP()+":"+8888);
+			var msg = in.readUTF();
+			System.out.println(socket.getInetAddress().getHostAddress()+": "+msg);
 		} 
 		catch (Exception e) {
-			System.err.println(getStatus(500));
-		}
-	}
-	
-	public void acceptClient() {
-		try {
-			socket = ssocket.accept();
-			System.out.println(getStatus(3)+" from "+ssocket.getInetAddress().getHostAddress()+":"+port);
-			out.writeUTF(getStatus(3)+" from "+ssocket.getInetAddress().getHostAddress()+":"+port);
-		} catch (IOException e) {
-			System.err.println(getStatus(500));
+			System.err.println(getStatusMessage(500));
 		}
 	}
 	
@@ -87,9 +82,9 @@ public class Server {
 		try {
 			socket.close();
 			in.close();
-			out.writeUTF(getStatus(0));
+			out.writeUTF(getStatusMessage(0));
 		} catch (Exception e) {
-			System.err.println(getStatus(500));
+			System.err.println(getStatusMessage(500));
 		}
 	}
 

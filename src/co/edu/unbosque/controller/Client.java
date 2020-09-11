@@ -1,15 +1,16 @@
 package co.edu.unbosque.controller;
 
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
 public class Client {
 	private Socket socket = null;
-	//private DataInputStream in = null;
+	private DataInputStream in = null;
 	private DataOutputStream out = null;
 	
-	public String getStatus(int status) {
+	public String getStatusMessage(int status) {
 		String message = null;
 		switch(status) {
 		case 0:
@@ -39,8 +40,11 @@ public class Client {
 	
 	public void run() {
 		try {
-			socket = new Socket("191.156.52.185", 8080);
+			socket = new Socket("192.168.0.16", 8888);
+			in = new DataInputStream(socket.getInputStream());
 			out = new DataOutputStream(socket.getOutputStream());
+			var msg = in.readUTF();
+			System.out.println("SERVER: "+msg);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -3,69 +3,44 @@ package co.edu.unbosque.controller;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.Socket;
+import java.net.*;
+import java.util.Scanner;
 
 public class Client {
 	private Socket socket = null;
-	private DataInputStream in = null;
-	private DataOutputStream out = null;
-	
-	public String getStatusMessage(int status) {
-		String message = null;
-		switch(status) {
-		case 0:
-			message = "Server is stopped";
-			break;
-		case 2:
-			message = "Server is starting";
-			break;
-		case 3:
-			message = "Client accepted";
-			break;
-		case 4:
-			message = "Client rejected";
-			break;
-		case 200:
-			message = "Server is ready";
-			break;
-		case 201:
-			message = "Server is ready with errors";
-			break;
-		case 500:
-			message = "Server has an unexpected error";
-			break;
-		}
-		return message;
-	}
-	
+	DataInputStream in = null;
+	DataOutputStream out = null;
+	private Scanner sc = new Scanner(System.in);
+
 	public void run() {
 		try {
-			socket = new Socket("192.168.0.16", 8888);
-			in = new DataInputStream(socket.getInputStream());
-			out = new DataOutputStream(socket.getOutputStream());
-			var msg = in.readUTF();
-			System.out.println("SERVER: "+msg);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Please wait...");
+			socket = new Socket("186.31.44.159", 8888);
+			System.out.println("Connection Successful");
+			online();
+		} catch(SocketException badSocket) {
+			System.out.println("Check your internet connection and try again. "+badSocket.getMessage());
+		} catch (IOException io) {
+			System.out.println("Client has an unexpected error: "+io.getMessage());
 		}
 	}
-	
-	public void writeMessage(String message) {
-		try {
-			out.writeUTF(message);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+	public void online() throws IOException {
+		in = new DataInputStream(socket.getInputStream());
+		out = new DataOutputStream(socket.getOutputStream());
+		boolean listening = true;
+		String msg = null;
+		while(listening) {
+			System.out.print("> ");
+			msg = sc.nextLine();
+			if(msg.equals("quit")){
+				listening = false;
+				socket.close();
+			}
+			out.writeUTF(msg);
+			System.out.println("Server: "+in.readUTF());
 		}
-	}
-	
-	public synchronized void stop() {
-		try {
-			socket.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		socket.close();
+		System.out.println("Connection Terminated");
 	}
 }

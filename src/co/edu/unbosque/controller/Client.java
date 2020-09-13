@@ -17,7 +17,7 @@ public class Client {
 		try {
 			IPControl control = new IPControl();
 			System.out.println("Please wait...");
-			socket = new Socket(control.PRUEBAS, 8888);
+			socket = new Socket(control.PRODUCCION, 8888);
 			System.out.println("Connection Successful");
 			online();
 		} catch(SocketException badSocket) {

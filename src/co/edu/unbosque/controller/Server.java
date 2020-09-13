@@ -11,12 +11,13 @@ public class Server {
 	private ServerSocket serverSocket = null;
 	private DataInputStream in = null;
 	private DataOutputStream out = null;
+	private Socket clientSocket = null;
 	private Scanner sc = new Scanner(System.in);
 
 	public String checkIP() throws IOException {
-		ExternalIP exIP = new ExternalIP();
-		exIP.checkIP();
-		return exIP.getIp();
+		IPControl ipControl = new IPControl();
+		ipControl.checkIP();
+		return ipControl.getIp();
 	}
 
 	public void run() {
@@ -25,32 +26,54 @@ public class Server {
 			serverSocket = new ServerSocket(8888);
 			System.out.println("Server is running on "+checkIP()+":"+8888);
 			online();
-		} catch (IOException io) {
+		} catch (Exception io) {
 			System.out.println("Server has an unexpected error. Cause: "+io.getMessage());
 		}
 	}
 
-	public void online() throws IOException {
-		System.out.println("Waiting for clients...");
-		while(true) {
-			Socket clientSocket = serverSocket.accept();
+	public void noClients() throws Exception {
+		serverSocket = new ServerSocket(8888);
+		online();
+	}
+
+	public void online() throws Exception {
+		System.out.println("No clients are connected. Waiting");
+		clientSocket = serverSocket.accept();
+		System.out.println(clientSocket.getInetAddress().getHostAddress()+" has connected");
+		while(clientSocket.isConnected()) {
 			in = new DataInputStream(clientSocket.getInputStream());
 			out = new DataOutputStream(clientSocket.getOutputStream());
-			sendMessage();
-			System.out.println(clientSocket.getInetAddress().getHostAddress()+": "+in.readUTF());
+			Thread speakThread = new Thread(this::sendMessage);
+			speakThread.start();
+			Thread listenThread = new Thread(() -> {
+				try {
+					System.out.println(clientSocket.getInetAddress().getHostAddress()+": "+in.readUTF());
+				}
+				catch (IOException e) {
+					try {
+						serverSocket.close();
+						noClients();
+					} catch (Exception ioException) {
+						System.out.println("Oops");
+						System.exit(1);
+					}
+				}
+			});
+			listenThread.start();
+			if(speakThread.isAlive()) {
+				listenThread.join();
+			} else {
+				speakThread.join();
+			}
 		}
 	}
 
-	public void sendMessage() throws IOException {
-		Thread thread = new Thread(() -> {
-			try {
-				System.out.print("> ");
-				String msg = sc.nextLine();
-				out.writeUTF(msg);
-			} catch (IOException e) {
-
-			}
-		});
-		thread.start();
+	public synchronized void sendMessage() {
+		try {
+			String msg = sc.nextLine();
+			out.writeUTF(msg);
+		} catch (IOException e) {
+			System.out.println("Something bad happened");
+		}
 	}
 }

@@ -13,13 +13,16 @@ public class Client {
 	private Scanner sc = new Scanner(System.in);
 
 	public void run() {
+
 		try {
+			IPControl control = new IPControl();
 			System.out.println("Please wait...");
-			socket = new Socket("186.31.44.159", 8888);
+			socket = new Socket(control.PRUEBAS, 8888);
 			System.out.println("Connection Successful");
 			online();
 		} catch(SocketException badSocket) {
 			System.out.println("Check your internet connection and try again. "+badSocket.getMessage());
+			System.exit(1);
 		} catch (IOException io) {
 			System.out.println("Client has an unexpected error: "+io.getMessage());
 		}
@@ -31,14 +34,23 @@ public class Client {
 		boolean listening = true;
 		String msg = null;
 		while(listening) {
-			System.out.print("> ");
 			msg = sc.nextLine();
 			if(msg.equals("quit")){
 				listening = false;
 				socket.close();
 			}
 			out.writeUTF(msg);
-			System.out.println("Server: "+in.readUTF());
+			Thread listen = new Thread(() -> {
+				try {
+					System.out.println("Server: "+in.readUTF());
+				} catch (IOException e) {
+					System.out.print("Server: ");System.err.print("Oh noes! Server's down");
+				}
+			});
+			listen.start();
+			if(socket.isConnected()) {
+				listen.interrupt();
+			}
 		}
 		socket.close();
 		System.out.println("Connection Terminated");

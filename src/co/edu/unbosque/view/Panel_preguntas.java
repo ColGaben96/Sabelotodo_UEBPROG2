@@ -45,6 +45,7 @@ public class Panel_preguntas extends JPanel{
 		
 		a= new JLabel("A.");
 		a.setBounds(140,310,200,40);
+		a.setForeground(Color.WHITE);
 		add(a);
 		
 		uno= new JButton("");
@@ -53,6 +54,7 @@ public class Panel_preguntas extends JPanel{
 		
 		b= new JLabel("B.");
 		b.setBounds(440,310,200,40);
+		b.setForeground(Color.WHITE);
 		add(b);
 		
 		dos= new JButton("");
@@ -61,6 +63,7 @@ public class Panel_preguntas extends JPanel{
 		
 		c= new JLabel("C.");
 		c.setBounds(140,400,200,40);
+		c.setForeground(Color.WHITE);
 		add(c);
 		
 		tres= new JButton("");
@@ -69,20 +72,21 @@ public class Panel_preguntas extends JPanel{
 		
 		d= new JLabel("D.");
 		d.setBounds(440,400,200,40);
+		d.setForeground(Color.WHITE);
 		add(d);
 		
 		cuatro= new JButton("");
 		cuatro.setBounds(440,430,200,40);
 		add(cuatro);
 		
-		im= new ImageIcon(getClass().getResource("C:\\Users\\TEMP\\git\\Sabelotodo_UEBPROG2\\imagenes\\Presentación1.jpg"));
+		im= new ImageIcon(("imagenes/Presentación1.jpg"));
 		ico= new ImageIcon(im.getImage().getScaledInstance(410,250,Image.SCALE_DEFAULT));
 		
 		ayuda= new JButton(ico);
 		ayuda.setBounds(660,150,100,100);
 		add(ayuda);
 		
-		imagen= new ImageIcon(getClass().getResource("C:\\Users\\TEMP\\git\\Sabelotodo_UEBPROG2\\imagenes\\x.jpg"));
+		imagen= new ImageIcon(("imagenes/x.jpg"));
 		icono= new ImageIcon(imagen.getImage().getScaledInstance(800,600,Image.SCALE_DEFAULT));
 		
 		fondo= new JLabel(icono);

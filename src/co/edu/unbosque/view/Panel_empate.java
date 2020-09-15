@@ -1,6 +1,5 @@
 package co.edu.unbosque.view;
 
-import java.awt.Color;
 import java.awt.Image;
 
 import javax.swing.Icon;
@@ -8,25 +7,20 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class Panel_ganador extends JPanel{
+public class Panel_empate extends JPanel{
 
 	private ImageIcon imagen;
 	private Icon icono;
-	private JLabel texto,fondo;
+	private JLabel fondo;
 	
-	public Panel_ganador() {
+	public Panel_empate() {
 		setLayout(null);
 		
-		texto= new JLabel("GANO EL PRIMER JUGADOR");
-		texto.setBounds(120,10,200,40);
-		add(texto);
-		
-		imagen= new ImageIcon(("imagenes/Ganador.gif"));
+		imagen= new ImageIcon(("imagenes/Empate.gif"));
 		icono= new ImageIcon(imagen.getImage().getScaledInstance(400,300,Image.SCALE_DEFAULT));
 		
 		fondo= new JLabel(icono);
 		fondo.setBounds(0,0,400,300);
 		add(fondo);
 	}
-	
 }

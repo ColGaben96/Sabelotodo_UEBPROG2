@@ -1,5 +1,10 @@
 package co.edu.unbosque.view;
 
+import java.awt.Color;
+import java.awt.Image;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -9,7 +14,10 @@ public class Panel_preguntas extends JPanel{
 
 	private JTextArea pregunta,p1,p2;
 	private JButton uno,dos,tres,cuatro,ayuda;
-	private JLabel punto1,punto2,a,b,c,d;
+	private JLabel punto1,fondo,punto2,a,b,c,d;
+	private Icon icono,ico;
+	private ImageIcon imagen,im;
+	
 	public Panel_preguntas() {
 		setLayout(null);
 		
@@ -19,6 +27,7 @@ public class Panel_preguntas extends JPanel{
 		
 		punto1= new JLabel("Puntos jugador1");
 		punto1.setBounds(200,20,100,40);
+		punto1.setForeground(Color.WHITE);
 		add(punto1);
 		
 		p1= new JTextArea();
@@ -27,6 +36,7 @@ public class Panel_preguntas extends JPanel{
 		
 		punto2= new JLabel("Puntos jugador2");
 		punto2.setBounds(400,20,100,40);
+		punto2.setForeground(Color.WHITE);
 		add(punto2);
 		
 		p2= new JTextArea();
@@ -65,9 +75,18 @@ public class Panel_preguntas extends JPanel{
 		cuatro.setBounds(440,430,200,40);
 		add(cuatro);
 		
-		ayuda= new JButton("50/50");
+		im= new ImageIcon(getClass().getResource("C:\\Users\\TEMP\\git\\Sabelotodo_UEBPROG2\\imagenes\\Presentación1.jpg"));
+		ico= new ImageIcon(im.getImage().getScaledInstance(410,250,Image.SCALE_DEFAULT));
+		
+		ayuda= new JButton(ico);
 		ayuda.setBounds(660,150,100,100);
 		add(ayuda);
 		
+		imagen= new ImageIcon(getClass().getResource("C:\\Users\\TEMP\\git\\Sabelotodo_UEBPROG2\\imagenes\\x.jpg"));
+		icono= new ImageIcon(imagen.getImage().getScaledInstance(800,600,Image.SCALE_DEFAULT));
+		
+		fondo= new JLabel(icono);
+		fondo.setBounds(0,0,800,600);
+		add(fondo);
 	}
 }

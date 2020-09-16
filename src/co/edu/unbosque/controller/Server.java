@@ -4,15 +4,15 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Server {
 
-	private ServerSocket serverSocket = null;
-	private DataInputStream in = null;
-	private DataOutputStream out = null;
-	private Socket clientSocket = null;
-	private Scanner sc = new Scanner(System.in);
+	private DatagramSocket socket;
+	private boolean running;
+	private byte[] buf = new byte[256];
+	private ArrayList<AddressPair> addresses = new ArrayList<>();
 
 	public String checkIP() throws IOException {
 		IPControl ipControl = new IPControl();
@@ -20,60 +20,35 @@ public class Server {
 		return ipControl.getIp();
 	}
 
-	public void run() {
-		System.out.println("Please wait...");
-		try {
-			serverSocket = new ServerSocket(8888);
-			System.out.println("Server is running on "+checkIP()+":"+8888);
-			online();
-		} catch (Exception io) {
-			System.out.println("Server has an unexpected error. Cause: "+io.getMessage());
+	public void sendMessage() throws IOException {
+		Scanner sc= new Scanner(System.in); //System.in is a standard input stream
+		System.out.print("Enter a string: ");
+		String str= sc.nextLine();
+		buf = str.getBytes();
+
+		for (AddressPair address : addresses) {
+			DatagramPacket response = new DatagramPacket(buf, buf.length, address.getAddress(), address.getPort());
+			socket.send(response);
 		}
+
 	}
 
-	public void noClients() throws Exception {
-		serverSocket = new ServerSocket(8888);
-		online();
-	}
+	public void run() throws IOException {
+		socket = new DatagramSocket(4445);
+		running = true;
 
-	public void online() throws Exception {
-		System.out.println("No clients are connected. Waiting");
-		clientSocket = serverSocket.accept();
-		System.out.println(clientSocket.getInetAddress().getHostAddress()+" has connected");
-		while(clientSocket.isConnected()) {
-			in = new DataInputStream(clientSocket.getInputStream());
-			out = new DataOutputStream(clientSocket.getOutputStream());
-			Thread speakThread = new Thread(this::sendMessage);
-			speakThread.start();
-			Thread listenThread = new Thread(() -> {
-				try {
-					System.out.println(clientSocket.getInetAddress().getHostAddress()+": "+in.readUTF());
-				}
-				catch (IOException e) {
-					try {
-						serverSocket.close();
-						noClients();
-					} catch (Exception ioException) {
-						System.out.println("Oops");
-						System.exit(1);
-					}
-				}
-			});
-			listenThread.start();
-			if(speakThread.isAlive()) {
-				listenThread.join();
-			} else {
-				speakThread.join();
-			}
-		}
-	}
-
-	public synchronized void sendMessage() {
-		try {
-			String msg = sc.nextLine();
-			out.writeUTF(msg);
-		} catch (IOException e) {
-			System.out.println("Something bad happened");
+		while (running) {
+			Scanner sc= new Scanner(System.in); //System.in is a standard input stream
+			System.out.print("Presione lo que le de la gana para continuar leyendo ");
+			String str= sc.nextLine();
+			DatagramPacket packet
+					= new DatagramPacket(buf, buf.length);
+			socket.receive(packet);
+			addresses.add(new AddressPair(packet.getAddress(), packet.getPort()));
+			String received
+					= new String(packet.getData(), 0, packet.getLength());
+			System.out.println(received);
+			sendMessage();
 		}
 	}
 }

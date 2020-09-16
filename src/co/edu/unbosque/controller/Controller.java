@@ -1,6 +1,7 @@
 package co.edu.unbosque.controller;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Scanner;
@@ -74,7 +75,7 @@ public class Controller {
 	 * <p>Method to start <b>server</b></p>
 	 * @author Gabriel Blanco
 	 */
-	public void startServer() {
+	public void startServer() throws IOException {
 		server.run();
 	}
 }

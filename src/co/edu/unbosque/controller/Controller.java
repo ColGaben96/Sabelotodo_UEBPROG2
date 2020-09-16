@@ -37,9 +37,7 @@ public class Controller {
 				case 1:
 					//Se va a solicitar crear un nuevo hilo por cliente.
 					//Debe estar el srv activo antes de crear un cliente.
-					Thread thread = new Thread(() -> {
-						startClient();
-					});
+					Thread thread = new Thread(this::startClient);
 					thread.start();
 					break;
 				case 2:
@@ -52,6 +50,7 @@ public class Controller {
 			                myIP.openStream()));
 					String ip = in.readLine();
 					System.out.println(ip);
+					System.out.println("Holis");
 					break;
 				}
 			} catch (Exception e) {

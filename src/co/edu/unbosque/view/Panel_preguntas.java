@@ -24,6 +24,7 @@ public class Panel_preguntas extends JPanel{
 		pregunta= new JTextArea();
 		pregunta.setBounds(140,80,500,200);
 		add(pregunta);
+		pregunta.setEditable(false);
 		
 		punto1= new JLabel("Puntos jugador1");
 		punto1.setBounds(200,20,100,40);
@@ -33,6 +34,7 @@ public class Panel_preguntas extends JPanel{
 		p1= new JTextArea();
 		p1.setBounds(300,30,20,20);
 		add(p1);
+		p1.setEditable(false);
 		
 		punto2= new JLabel("Puntos jugador2");
 		punto2.setBounds(400,20,100,40);
@@ -42,6 +44,7 @@ public class Panel_preguntas extends JPanel{
 		p2= new JTextArea();
 		p2.setBounds(500,30,20,20);
 		add(p2);
+		p2.setEditable(false);
 		
 		a= new JLabel("A.");
 		a.setBounds(140,310,200,40);
@@ -56,6 +59,7 @@ public class Panel_preguntas extends JPanel{
 		b.setBounds(440,310,200,40);
 		b.setForeground(Color.WHITE);
 		add(b);
+
 		
 		dos= new JButton("");
 		dos.setBounds(440,350,200,40);

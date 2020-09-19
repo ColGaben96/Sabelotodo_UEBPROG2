@@ -1,24 +1,41 @@
-package co.edu.unbosque.controller;
-
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.Scanner;
-
 /**
- * @author Gabriel Blanco - Juan Pablo Araque
+ * @author Gabriel Blanco - Juan Pablo Araque - Laura Chiquillo - Sebastian Cubillos
  * @version 1.0
  */
-public class Controller {
+public class Controller implements ActionListener {
 	
 	private Client client = new Client();
 	private Server server = new Server();
+	private View_Preguntas ven_preguntas;
+	private ViewBienvenida ven_principal;
+	private View_ganador ven_ganador;
+	private View_empate ven_empate;
 	
 	/**
 	 * <h1>Description</h1>
 	 * <p>Method for <b>debugging</b> purposes</p>
 	 * @author Gabriel Blanco
 	 */
+
+	public Controller() {
+		ven_principal= new ViewBienvenida();
+		ven_principal.setVisible(false);
+		ven_principal.getPanelBienvenida().getBotonJugar().addActionListener(this);
+		ven_preguntas= new View_Preguntas();
+		ven_preguntas.setVisible(false);
+		ven_ganador= new View_ganador();
+		ven_ganador.setVisible(true);
+		ven_empate= new View_empate();
+		ven_empate.setVisible(false);
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		if (e.getSource().equals(ven_principal.getPanelBienvenida().getBotonJugar())) {
+			ven_preguntas.setVisible(true);
+			ven_principal.setVisible(false);
+		}
+	}
 	public void start() {
 		Scanner sc = new Scanner(System.in);
 		var active = true;
@@ -28,7 +45,7 @@ public class Controller {
 				var option = sc.nextInt();
 				switch(option) {
 				default:
-					System.out.println("ERROR: Opción inválida. Por favor ingresa las opciones disponibles.");
+					System.out.println("ERROR: Opciï¿½n invï¿½lida. Por favor ingresa las opciones disponibles.");
 					break;
 				case 0:
 					active = false;
@@ -37,13 +54,11 @@ public class Controller {
 				case 1:
 					//Se va a solicitar crear un nuevo hilo por cliente.
 					//Debe estar el srv activo antes de crear un cliente.
-					Thread thread = new Thread(() -> {
-						startClient();
-					});
+					Thread thread = new Thread(this::startClient);
 					thread.start();
 					break;
 				case 2:
-					//No se solicita crear un nuevo hilo, ya que la ejecución del srv es por aparte.
+					//No se solicita crear un nuevo hilo, ya que la ejecuciï¿½n del srv es por aparte.
 					startServer();
 					break;
 				case 3:
@@ -52,10 +67,11 @@ public class Controller {
 			                myIP.openStream()));
 					String ip = in.readLine();
 					System.out.println(ip);
+					System.out.println("Holis");
 					break;
 				}
 			} catch (Exception e) {
-				System.out.println("ERROR: Opción inválida. Por favor ingresa las opciones disponibles.");
+				System.out.println("ERROR: Opciï¿½n invï¿½lida. Por favor ingresa las opciones disponibles.");
 				start();
 			}
 		}

@@ -19,5 +19,4 @@ public class Sabelotodo {
 	public void setJugador2(Jugador jugador2) {
 		this.jugador2 = jugador2;
 	}
-	
 }

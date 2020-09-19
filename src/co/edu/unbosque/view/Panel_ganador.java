@@ -28,13 +28,5 @@ public class Panel_ganador extends JPanel{
 		fondo.setBounds(0,0,400,300);
 		add(fondo);
 	}
-
-	public JLabel getTexto() {
-		return texto;
-	}
-
-	public void setTexto(JLabel texto) {
-		this.texto = texto;
-	}
 	
 }

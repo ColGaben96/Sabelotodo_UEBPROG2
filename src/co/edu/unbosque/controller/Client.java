@@ -39,7 +39,7 @@ public class Client {
 	
 	public void run() {
 		try {
-			socket = new Socket("191.156.52.185", 8080);
+			socket = new Socket("186.31.44.159", 8080);
 			out = new DataOutputStream(socket.getOutputStream());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

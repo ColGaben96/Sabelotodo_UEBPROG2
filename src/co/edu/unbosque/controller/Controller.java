@@ -17,6 +17,7 @@ public class Controller implements ActionListener {
 	 * @author Gabriel Blanco
 	 */
 
+	private ViewBienvenida ven_principal;
 	public Controller() {
 		ven_principal= new ViewBienvenida();
 		ven_principal.setVisible(false);

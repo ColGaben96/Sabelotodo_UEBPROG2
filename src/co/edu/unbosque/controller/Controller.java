@@ -1,3 +1,15 @@
+package co.edu.unbosque.controller;
+import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.Scanner;
+
+import co.edu.unbosque.view.ViewBienvenida;
+import co.edu.unbosque.view.View_Preguntas;
+import co.edu.unbosque.view.View_empate;
+import co.edu.unbosque.view.View_ganador;
+
 /**
  * @author Gabriel Blanco - Juan Pablo Araque - Laura Chiquillo - Sebastian Cubillos
  * @version 1.0
@@ -20,23 +32,25 @@ public class Controller implements ActionListener {
 	private ViewBienvenida ven_principal;
 	public Controller() {
 		ven_principal= new ViewBienvenida();
-		ven_principal.setVisible(false);
+		ven_principal.setVisible(true);
 		ven_principal.getPanelBienvenida().getBotonJugar().addActionListener(this);
 		ven_preguntas= new View_Preguntas();
 		ven_preguntas.setVisible(false);
 		ven_ganador= new View_ganador();
-		ven_ganador.setVisible(true);
+		ven_ganador.setVisible(false);
 		ven_empate= new View_empate();
 		ven_empate.setVisible(false);
 	}
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		
+	public void actionPerformed(java.awt.event.ActionEvent e) {
+		// TODO Auto-generated method stub
 		if (e.getSource().equals(ven_principal.getPanelBienvenida().getBotonJugar())) {
 			ven_preguntas.setVisible(true);
 			ven_principal.setVisible(false);
 		}
+		
 	}
+	
 	public void start() {
 		Scanner sc = new Scanner(System.in);
 		var active = true;

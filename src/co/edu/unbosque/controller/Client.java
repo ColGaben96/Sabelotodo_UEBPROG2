@@ -25,7 +25,7 @@ public class Client {
 						= new DatagramPacket(buf, buf.length, address, 8888);
 				socket.send(packet);
 				//while(true) {
-					//sendEcho();
+				//sendEcho();
 				//}
 			} catch (IOException e) {
 				e.printStackTrace();

@@ -1,58 +1,47 @@
 package co.edu.unbosque.controller;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.*;
 import java.util.Scanner;
 
 public class Client {
-	private Socket socket = null;
-	DataInputStream in = null;
-	DataOutputStream out = null;
-	private Scanner sc = new Scanner(System.in);
 
-	public void run() {
+	private DatagramSocket socket;
+	private InetAddress address;
+	private byte[] buf;
 
-		try {
-			IPControl control = new IPControl();
-			System.out.println("Please wait...");
-			socket = new Socket(control.PRODUCCION, 8888);
-			System.out.println("Connection Successful");
-			online();
-		} catch(SocketException badSocket) {
-			System.out.println("Check your internet connection and try again. "+badSocket.getMessage());
-			System.exit(1);
-		} catch (IOException io) {
-			System.out.println("Client has an unexpected error: "+io.getMessage());
-		}
+
+	public void run() throws IOException {
+		Scanner sc= new Scanner(System.in); //System.in is a standard input stream
+		System.out.print("Enter a string: ");
+		String str= sc.nextLine();              //reads string
+		sendEcho(str);
 	}
 
-	public void online() throws IOException {
-		in = new DataInputStream(socket.getInputStream());
-		out = new DataOutputStream(socket.getOutputStream());
-		boolean listening = true;
-		String msg = null;
-		while(listening) {
-			msg = sc.nextLine();
-			if(msg.equals("quit")){
-				listening = false;
-				socket.close();
-			}
-			out.writeUTF(msg);
-			Thread listen = new Thread(() -> {
-				try {
-					System.out.println("Server: "+in.readUTF());
-				} catch (IOException e) {
-					System.out.print("Server: ");System.err.print("Oh noes! Server's down");
-				}
-			});
-			listen.start();
-			if(socket.isConnected()) {
-				listen.interrupt();
-			}
-		}
+	public String sendEcho(String msg) throws IOException {
+		socket = new DatagramSocket();
+		address = InetAddress.getByName("localhost");
+		buf = msg.getBytes();
+		DatagramPacket packet
+				= new DatagramPacket(buf, buf.length, address, 8888);
+		socket.send(packet);
+
+		Scanner sc= new Scanner(System.in); //System.in is a standard input stream
+		System.out.print("Presione lo que le de la gana para continuar leyendo ");
+		String str= sc.nextLine();
+
+		packet = new DatagramPacket(buf, buf.length);
+		socket.receive(packet);
+		String received = new String(
+				packet.getData(), 0, packet.getLength());
+		System.out.println(received);
+		return received;
+	}
+
+	public void close() {
 		socket.close();
-		System.out.println("Connection Terminated");
 	}
+
 }

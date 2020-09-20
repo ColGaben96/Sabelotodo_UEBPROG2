@@ -17,7 +17,16 @@ public class Client {
 		Scanner sc= new Scanner(System.in); //System.in is a standard input stream
 		System.out.print("Enter a string: ");
 		String str= sc.nextLine();              //reads string
-		sendEcho(str);
+		Thread sMessage = new Thread(() -> {
+			try {
+				while(true) {
+					sendEcho(str);
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
+		sMessage.start();
 	}
 
 	public String sendEcho(String msg) throws IOException {
@@ -30,9 +39,7 @@ public class Client {
 		socket.send(packet);
 
 		Scanner sc= new Scanner(System.in); //System.in is a standard input stream
-		System.out.print("Presione lo que le de la gana para continuar leyendo ");
 		String str= sc.nextLine();
-
 		packet = new DatagramPacket(buf, buf.length);
 		socket.receive(packet);
 		String received = new String(

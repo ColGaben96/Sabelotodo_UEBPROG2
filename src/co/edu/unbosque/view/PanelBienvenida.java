@@ -19,6 +19,7 @@ public class PanelBienvenida extends JPanel{
 	private Font font;
 	private Icon icono;
 	private JLabel etiquetaImagen;
+	public final String JUGAR = "JUGAR", SALIR = "SALIR";
 	
 	public PanelBienvenida() {
 		
@@ -32,6 +33,7 @@ public class PanelBienvenida extends JPanel{
 		botonJugar.setForeground(Color.WHITE);
 		botonJugar.setFocusable(false);
 		botonJugar.setContentAreaFilled(false);
+		botonJugar.setActionCommand(JUGAR);
 		add(botonJugar);
 		
 		botonSalir = new JButton("SALIR");
@@ -40,6 +42,7 @@ public class PanelBienvenida extends JPanel{
 		botonSalir.setForeground(Color.WHITE);
 		botonSalir.setFocusable(false);
 		botonSalir.setContentAreaFilled(false);
+		botonSalir.setActionCommand(SALIR);
 		add(botonSalir);
 		
 		imagen = new ImageIcon(("imagenes/1.gif"));

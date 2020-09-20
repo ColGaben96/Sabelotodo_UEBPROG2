@@ -3,7 +3,7 @@ import java.io.*;
 public class Archivos {
 
     public String read() throws IOException{
-        File f = new File("C:\\shared\\sysfiles\\Fragen.sabelotodo"); //Corregir
+        File f = new File("./sysfiles/Fragen.sabelotodo");
         FileReader fr = new FileReader(f);
         BufferedReader br = new BufferedReader(fr);
         var line = "";

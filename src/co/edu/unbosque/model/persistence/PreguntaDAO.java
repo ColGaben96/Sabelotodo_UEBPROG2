@@ -22,10 +22,10 @@ public class PreguntaDAO {
         var titulo = this.pregunta.get(numPregunta).getTitulo();
         var preguntas = this.pregunta.get(numPregunta).getPregunta();
         var correcta = this.pregunta.get(numPregunta).getRespuesta();
-        var preguntasComma = titulo+",";
+        var preguntasComma = titulo+";";
         for (String s : preguntas) {
             if (s != null) {
-                preguntasComma += s + ",";
+                preguntasComma += s + ";";
             }
         }
         preguntasComma += correcta;

@@ -172,4 +172,13 @@ public class Controller implements ActionListener {
 	public String serverReadQuestion() {
 		return model.getQuestion();
 	}
+
+	public void paintQuestions(String question) {
+		question.split(";");
+
+	}
+
+	public void openQuestionsFile() throws IOException {
+		model.startServer();
+	}
 }

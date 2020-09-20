@@ -17,6 +17,7 @@ public class Client {
 	public void run() throws IOException {
 		Thread sMessage = new Thread(() -> {
 			try {
+				Controller c = new Controller();
 				socket = new DatagramSocket();
 				buf = "me conecte!".getBytes();
 				address = InetAddress.getByName("186.154.177.154");
@@ -30,13 +31,14 @@ public class Client {
 					socket.receive(packet);
 					response = new String(packet.getData(),0, packet.getLength());
 					System.out.println(response);
-					switch(response) {
-						case "***":
-							connected = true;
-							break;
-						case "t":
-							System.out.println("T");
-							break;
+					if(response.equals("***")) {
+						connected = true;
+					}
+					if(response.equals("T")) {
+						System.out.println("t");
+					}
+					if(response.startsWith("Q:")) {
+
 					}
 				}
 			} catch (IOException e) {

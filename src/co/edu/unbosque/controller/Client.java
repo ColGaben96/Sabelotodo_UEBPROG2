@@ -11,28 +11,62 @@ public class Client {
 	private DatagramSocket socket;
 	private InetAddress address;
 	private byte[] buf;
+	private boolean connected = false;
 
 
 	public void run() throws IOException {
-		Scanner sc= new Scanner(System.in); //System.in is a standard input stream
-		System.out.print("Enter a string: ");
-		String str= sc.nextLine();              //reads string
-		sendEcho(str);
+		Thread sMessage = new Thread(() -> {
+			try {
+				Controller c = new Controller();
+				socket = new DatagramSocket();
+				buf = "me conecte!".getBytes();
+				address = InetAddress.getByName("186.154.177.154");
+				socket.connect(address, 8888);
+				DatagramPacket packet = new DatagramPacket(buf, buf.length, address, 8888);
+				socket.send(packet);
+				buf = "wdfbHIBCHWEFBHJFBHKDFDJKSBFKDFHDSBFHDBFKADBASBFHJADFBHJADBDHSBFDJASBFHJADFBHKDSBFHDSABFJADSBKFJBASKJDFBDASJKBFDJASKFBKJADSBKJDSBFDSABFDKSJ".getBytes();
+				packet = new DatagramPacket(buf, buf.length);
+				var response = "";
+				while (!(response.equals("!!!"))) {
+					socket.receive(packet);
+					response = new String(packet.getData(),0, packet.getLength());
+					System.out.println(response);
+					if(response.equals("***")) {
+						connected = true;
+					}
+					if(response.equals("T")) {
+						System.out.println("t");
+					}
+					if(response.startsWith("Q:")) {
+
+					}
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
+		sMessage.start();
+		try {
+			Thread.sleep(250);
+		} catch (Exception e) {
+
+		}
 	}
 
-	public String sendEcho(String msg) throws IOException {
-		socket = new DatagramSocket();
-		IPControl ip = new IPControl();
-		address = InetAddress.getByName(ip.PRODUCCION);
-		buf = msg.getBytes();
+	public boolean checkConnection() {
+		return connected;
+	}
+
+	public String sendEcho() throws IOException {
+		Scanner sc= new Scanner(System.in); //System.in is a standard input stream
+		System.out.print("Enter a string: ");
+		String str= sc.nextLine();
+		buf = str.getBytes();
 		DatagramPacket packet
 				= new DatagramPacket(buf, buf.length, address, 8888);
 		socket.send(packet);
 
-		Scanner sc= new Scanner(System.in); //System.in is a standard input stream
-		System.out.print("Presione lo que le de la gana para continuar leyendo ");
-		String str= sc.nextLine();
-
+		str= sc.nextLine();
 		packet = new DatagramPacket(buf, buf.length);
 		socket.receive(packet);
 		String received = new String(

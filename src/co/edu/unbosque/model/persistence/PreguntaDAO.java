@@ -22,17 +22,21 @@ public class PreguntaDAO {
         var titulo = this.pregunta.get(numPregunta).getTitulo();
         var preguntas = this.pregunta.get(numPregunta).getPregunta();
         var correcta = this.pregunta.get(numPregunta).getRespuesta();
-        var preguntasComma = titulo+",";
+        var preguntasComma = titulo+";";
         for (String s : preguntas) {
             if (s != null) {
-                preguntasComma += s + ",";
+                preguntasComma += s + ";";
             }
         }
         preguntasComma += correcta;
         return preguntasComma;
     }
 
-    public boolean checkCorrecto() {
-        return pregunta.get(numPregunta).esCorrecto();
+    public boolean checkCorrecto(int answer) {
+        if(answer == pregunta.get(numPregunta).getRespuesta()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

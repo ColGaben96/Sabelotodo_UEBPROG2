@@ -48,8 +48,8 @@ public class Sabelotodo {
         }
     }
 
-    public void sendAnswer() {
-
+    public boolean checkAnswer(int answer) {
+        return pregunta.checkCorrecto(answer);
     }
 
     public String getQuestion() {

@@ -60,6 +60,7 @@ public class Server {
 						System.out.println("ya pueden jugar");
 						var question = controller.serverReadQuestion();
 						sendMessageForAll("Q:"+question);
+						controller.paintQuestions(question);
 						timer = new Timer(1000, new ActionListener() {
 							@Override
 							public void actionPerformed(ActionEvent e) {

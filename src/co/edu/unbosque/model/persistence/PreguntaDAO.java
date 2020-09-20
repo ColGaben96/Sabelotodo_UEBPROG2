@@ -32,7 +32,11 @@ public class PreguntaDAO {
         return preguntasComma;
     }
 
-    public boolean checkCorrecto() {
-        return pregunta.get(numPregunta).esCorrecto();
+    public boolean checkCorrecto(int answer) {
+        if(answer == pregunta.get(numPregunta).getRespuesta()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -174,7 +174,12 @@ public class Controller implements ActionListener {
 	}
 
 	public void paintQuestions(String question) {
-		question.split(";");
+		var questionStructure = question.split(";");
+		view.getInGame().getPregunta().setText(questionStructure[0]);
+		view.getInGame().getUno().setText(questionStructure[1]);
+		view.getInGame().getDos().setText(questionStructure[2]);
+		view.getInGame().getTres().setText(questionStructure[3]);
+		view.getInGame().getCuatro().setText(questionStructure[4]);
 
 	}
 

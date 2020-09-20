@@ -37,13 +37,16 @@ public class Server {
 		socket = new DatagramSocket(8888);
 		running = true;
 		System.out.println("IP: "+checkIP()+":"+8888);
-		while (running) {
 			Thread listenT = new Thread(() -> {
 				while(true) {
 					try {
+						Scanner sc= new Scanner(System.in); //System.in is a standard input stream
+						System.out.print("Enter a string: ");
+						String str= sc.nextLine();
 						DatagramPacket packet
 								= new DatagramPacket(buf, buf.length);
 						socket.receive(packet);
+						System.out.println("Connected: "+socket.getInetAddress().getHostAddress());
 						addresses.add(new AddressPair(packet.getAddress(), packet.getPort()));
 						String received
 								= new String(packet.getData(), 0, packet.getLength());
@@ -57,23 +60,6 @@ public class Server {
 					}
 				}
 			});
-			listenT.join();
-			Thread speakT = new Thread(() -> {
-				while(true) {
-					try {
-						sendMessage();
-					} catch (IOException e) {
-						try {
-							run();
-						} catch (IOException | InterruptedException ioException) {
-							ioException.printStackTrace();
-						}
-					}
-				}
-			});
-			speakT.join();
-			listenT.interrupt();
-			speakT.interrupt();
-		}
+			listenT.start();
 	}
 }

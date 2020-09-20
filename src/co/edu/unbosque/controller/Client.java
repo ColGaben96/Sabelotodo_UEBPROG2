@@ -14,25 +14,36 @@ public class Client {
 
 
 	public void run() throws IOException {
-		Scanner sc= new Scanner(System.in); //System.in is a standard input stream
-		System.out.print("Enter a string: ");
-		String str= sc.nextLine();              //reads string
-		sendEcho(str);
+		Thread sMessage = new Thread(() -> {
+			try {
+				socket = new DatagramSocket();
+				byte[] ipAddr = new byte[] { (byte)186, (byte)28, (byte)58,(byte) 158 };
+				address = InetAddress.getLocalHost();
+				socket.connect(address,8888);
+				buf = "me conecte!".getBytes();
+				DatagramPacket packet
+						= new DatagramPacket(buf, buf.length, address, 8888);
+				socket.send(packet);
+				//while(true) {
+					//sendEcho();
+				//}
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
+		sMessage.start();
 	}
 
-	public String sendEcho(String msg) throws IOException {
-		socket = new DatagramSocket();
-		IPControl ip = new IPControl();
-		address = InetAddress.getByName(ip.PRODUCCION);
-		buf = msg.getBytes();
+	public String sendEcho() throws IOException {
+		Scanner sc= new Scanner(System.in); //System.in is a standard input stream
+		System.out.print("Enter a string: ");
+		String str= sc.nextLine();
+		buf = str.getBytes();
 		DatagramPacket packet
 				= new DatagramPacket(buf, buf.length, address, 8888);
 		socket.send(packet);
 
-		Scanner sc= new Scanner(System.in); //System.in is a standard input stream
-		System.out.print("Presione lo que le de la gana para continuar leyendo ");
-		String str= sc.nextLine();
-
+		str= sc.nextLine();
 		packet = new DatagramPacket(buf, buf.length);
 		socket.receive(packet);
 		String received = new String(

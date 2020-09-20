@@ -41,12 +41,12 @@ public class Server {
 			while(true) {
 				try {
 					Scanner sc= new Scanner(System.in); //System.in is a standard input stream
-					System.out.print("Enter a string: ");
-					String str= sc.nextLine();
+					//System.out.print("Enter a string: ");
+					//String str= sc.nextLine();
 					DatagramPacket packet
 							= new DatagramPacket(buf, buf.length);
 					socket.receive(packet);
-					System.out.println("Connected: "+socket.getInetAddress().getHostAddress());
+					System.out.println("Connected: "+packet.getAddress());
 					addresses.add(new AddressPair(packet.getAddress(), packet.getPort()));
 					String received
 							= new String(packet.getData(), 0, packet.getLength());

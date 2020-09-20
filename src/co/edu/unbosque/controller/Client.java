@@ -22,7 +22,8 @@ public class Client {
 
 	public String sendEcho(String msg) throws IOException {
 		socket = new DatagramSocket();
-		address = InetAddress.getByName("localhost");
+		IPControl ip = new IPControl();
+		address = InetAddress.getByName(ip.PRODUCCION);
 		buf = msg.getBytes();
 		DatagramPacket packet
 				= new DatagramPacket(buf, buf.length, address, 8888);

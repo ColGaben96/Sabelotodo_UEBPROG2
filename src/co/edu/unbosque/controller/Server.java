@@ -36,7 +36,7 @@ public class Server {
 	public void run() throws IOException, InterruptedException {
 		socket = new DatagramSocket(8888);
 		running = true;
-
+		System.out.println("IP: "+checkIP()+":"+8888);
 		while (running) {
 			Thread listenT = new Thread(() -> {
 				while(true) {

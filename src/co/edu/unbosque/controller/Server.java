@@ -43,7 +43,6 @@ public class Server {
 					try {
 						DatagramPacket packet
 								= new DatagramPacket(buf, buf.length);
-						System.out.println("Connected: "+socket.getInetAddress().getHostAddress());
 						socket.receive(packet);
 						addresses.add(new AddressPair(packet.getAddress(), packet.getPort()));
 						String received

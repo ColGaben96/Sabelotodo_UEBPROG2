@@ -1,3 +1,11 @@
+package co.edu.unbosque.controller;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.Scanner;
+
 /**
  * @author Gabriel Blanco - Juan Pablo Araque - Laura Chiquillo - Sebastian Cubillos
  * @version 1.0
@@ -91,7 +99,7 @@ public class Controller implements ActionListener {
 	 * <p>Method to start <b>server</b></p>
 	 * @author Gabriel Blanco
 	 */
-	public void startServer() {
+	public void startServer() throws IOException {
 		server.run();
 	}
 }

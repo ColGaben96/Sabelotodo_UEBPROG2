@@ -1,10 +1,7 @@
 package co.edu.unbosque.controller;
 
 import co.edu.unbosque.model.Sabelotodo;
-import co.edu.unbosque.view.ViewBienvenida;
-import co.edu.unbosque.view.View_Preguntas;
-import co.edu.unbosque.view.View_empate;
-import co.edu.unbosque.view.View_ganador;
+import co.edu.unbosque.view.MainView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,29 +19,15 @@ public class Controller implements ActionListener {
 	
 	private Client client = new Client();
 	private Server server = new Server();
-	private View_Preguntas ven_preguntas;
-	private ViewBienvenida ven_principal;
-	private View_ganador ven_ganador;
-	private View_empate ven_empate;
 	private Sabelotodo model = new Sabelotodo();
+	private MainView view = new MainView();
+
 	
 	/**
 	 * <h1>Description</h1>
 	 * <p>Method for <b>debugging</b> purposes</p>
 	 * @author Gabriel Blanco
 	 */
-
-	public Controller() {
-
-	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		
-		if (e.getSource().equals(ven_principal.getPanelBienvenida().getBotonJugar())) {
-			ven_preguntas.setVisible(true);
-			ven_principal.setVisible(false);
-		}
-	}
 	public void start() {
 		Scanner sc = new Scanner(System.in);
 		var active = true;
@@ -109,5 +92,14 @@ public class Controller implements ActionListener {
 	public void startServer() throws IOException, InterruptedException {
 		model.startServer();
 		server.run();
+	}
+
+	/**
+	 * @author Laura Chiquillo - Sebastian Cubillos
+	 * @param e
+	 */
+	@Override
+	public void actionPerformed(ActionEvent e) {
+
 	}
 }

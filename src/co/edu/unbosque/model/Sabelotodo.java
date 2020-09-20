@@ -8,6 +8,9 @@ import java.io.IOException;
 public class Sabelotodo {
 	private Jugador jugador1;
 	private Jugador jugador2;
+	public Sabelotodo() {
+
+    }
 	public Sabelotodo(Jugador jugador1,Jugador jugador2) {
 		this.jugador1=jugador1;
 		this.jugador2=jugador2;

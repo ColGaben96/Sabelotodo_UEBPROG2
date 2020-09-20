@@ -13,6 +13,7 @@ public class Server {
 	private boolean running;
 	private byte[] buf = new byte[256];
 	private ArrayList<AddressPair> addresses = new ArrayList<>();
+	private Scanner sc= new Scanner(System.in);
 
 	public String checkIP() throws IOException {
 		IPControl ipControl = new IPControl();
@@ -21,8 +22,7 @@ public class Server {
 	}
 
 	public void sendMessage() throws IOException {
-		Scanner sc= new Scanner(System.in); //System.in is a standard input stream
-		System.out.print("Enter a string: ");
+		//System.out.print("Enter a string: ");
 		String str= sc.nextLine();
 		buf = str.getBytes();
 
@@ -33,22 +33,47 @@ public class Server {
 
 	}
 
-	public void run() throws IOException {
-		socket = new DatagramSocket(4445);
+	public void run() throws IOException, InterruptedException {
+		socket = new DatagramSocket(8888);
 		running = true;
 
 		while (running) {
-			Scanner sc= new Scanner(System.in); //System.in is a standard input stream
-			System.out.print("Presione lo que le de la gana para continuar leyendo ");
-			String str= sc.nextLine();
-			DatagramPacket packet
-					= new DatagramPacket(buf, buf.length);
-			socket.receive(packet);
-			addresses.add(new AddressPair(packet.getAddress(), packet.getPort()));
-			String received
-					= new String(packet.getData(), 0, packet.getLength());
-			System.out.println(received);
-			sendMessage();
+			Thread listenT = new Thread(() -> {
+				while(true) {
+					try {
+						DatagramPacket packet
+								= new DatagramPacket(buf, buf.length);
+						socket.receive(packet);
+						addresses.add(new AddressPair(packet.getAddress(), packet.getPort()));
+						String received
+								= new String(packet.getData(), 0, packet.getLength());
+						System.out.println(received);
+					} catch (IOException e) {
+						try {
+							run();
+						} catch (IOException | InterruptedException ioException) {
+							ioException.printStackTrace();
+						}
+					}
+				}
+			});
+			listenT.join();
+			Thread speakT = new Thread(() -> {
+				while(true) {
+					try {
+						sendMessage();
+					} catch (IOException e) {
+						try {
+							run();
+						} catch (IOException | InterruptedException ioException) {
+							ioException.printStackTrace();
+						}
+					}
+				}
+			});
+			speakT.join();
+			listenT.interrupt();
+			speakT.interrupt();
 		}
 	}
 }

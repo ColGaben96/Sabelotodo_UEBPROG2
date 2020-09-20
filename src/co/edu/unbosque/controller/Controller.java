@@ -81,7 +81,15 @@ public class Controller implements ActionListener {
 	 * @author Gabriel Blanco
 	 */
 	public void startClient() throws IOException {
-		client.run();
+		Thread tClient = new Thread(() -> {
+			try {
+				client.run();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		});
+		tClient.start();
+		view.start(this);
 	}
 	
 	/**
@@ -90,8 +98,15 @@ public class Controller implements ActionListener {
 	 * @author Gabriel Blanco
 	 */
 	public void startServer() throws IOException, InterruptedException {
+		Thread tServer = new Thread(() -> {
+			try {
+				server.run();
+			} catch (IOException | InterruptedException e) {
+				e.printStackTrace();
+			}
+		});
+		tServer.start();
 		model.startServer();
-		server.run();
 	}
 
 	/**
@@ -100,6 +115,26 @@ public class Controller implements ActionListener {
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals(view.getMainMenu().JUGAR)) {
+			view.goGame();
+		}
+		if(e.getActionCommand().equals(view.getMainMenu().SALIR)) {
+			System.exit(0);
+		}
+		if(e.getActionCommand().equals(view.getInGame().UNO)) {
 
+		}
+		if(e.getActionCommand().equals(view.getInGame().DOS)) {
+
+		}
+		if(e.getActionCommand().equals(view.getInGame().TRES)) {
+
+		}
+		if(e.getActionCommand().equals(view.getInGame().CUATRO)) {
+
+		}
+		if(e.getActionCommand().equals(view.getInGame().AYUDA)) {
+
+		}
 	}
 }

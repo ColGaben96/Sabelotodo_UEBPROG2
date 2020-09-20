@@ -8,13 +8,6 @@ import java.io.IOException;
 public class Sabelotodo {
 	private Jugador jugador1;
 	private Jugador jugador2;
-	public Sabelotodo() {
-
-    }
-	public Sabelotodo(Jugador jugador1,Jugador jugador2) {
-		this.jugador1=jugador1;
-		this.jugador2=jugador2;
-	}
 	public Jugador getJugador1() {
 		return jugador1;
 	}
@@ -31,6 +24,15 @@ public class Sabelotodo {
     private Archivos archivos = new Archivos();
     private int cantPreguntas = 0;
 
+    public Sabelotodo() {
+
+    }
+
+    public Sabelotodo(Jugador jugador1,Jugador jugador2) {
+        this.jugador1=jugador1;
+        this.jugador2=jugador2;
+    }
+
     public void startServer() throws IOException {
         var arreglo = archivos.read().split("\n");
         cantPreguntas = arreglo.length;
@@ -44,6 +46,9 @@ public class Sabelotodo {
             int respuesta = Integer.parseInt(pregunta[5]);
             this.pregunta.restorePregunta(titulo, preguntas, respuesta);
         }
-        System.out.println(pregunta.readPregunta(cantPreguntas));
+    }
+
+    public void sendAnswer() {
+
     }
 }

@@ -7,7 +7,7 @@ import java.net.URL;
 
 public class IPControl {
     private String ip = "";
-    public final String PRODUCCION = "186.31.44.159";
+    public String PRODUCCION = "186.31.44.159";
     public final String PRUEBAS = "127.0.0.1";
 
     public void checkIP() throws IOException {

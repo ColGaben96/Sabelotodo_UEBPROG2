@@ -51,4 +51,8 @@ public class Sabelotodo {
     public void sendAnswer() {
 
     }
+
+    public String getQuestion() {
+        return pregunta.readPregunta(cantPreguntas);
+    }
 }

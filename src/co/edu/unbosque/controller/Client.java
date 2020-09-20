@@ -11,27 +11,48 @@ public class Client {
 	private DatagramSocket socket;
 	private InetAddress address;
 	private byte[] buf;
+	private boolean connected = false;
 
 
 	public void run() throws IOException {
 		Thread sMessage = new Thread(() -> {
 			try {
 				socket = new DatagramSocket();
-				byte[] ipAddr = new byte[] { (byte)186, (byte)28, (byte)58,(byte) 158 };
-				address = InetAddress.getLocalHost();
-				socket.connect(address,8888);
 				buf = "me conecte!".getBytes();
-				DatagramPacket packet
-						= new DatagramPacket(buf, buf.length, address, 8888);
+				address = InetAddress.getByName("186.154.177.154");
+				socket.connect(address, 8888);
+				DatagramPacket packet = new DatagramPacket(buf, buf.length, address, 8888);
 				socket.send(packet);
-				//while(true) {
-				//sendEcho();
-				//}
+				buf = "wdfbHIBCHWEFBHJFBHKDFDJKSBFKDFHDSBFHDBFKADBASBFHJADFBHJADBDHSBFDJASBFHJADFBHKDSBFHDSABFJADSBKFJBASKJDFBDASJKBFDJASKFBKJADSBKJDSBFDSABFDKSJ".getBytes();
+				packet = new DatagramPacket(buf, buf.length);
+				var response = "";
+				while (!(response.equals("!!!"))) {
+					socket.receive(packet);
+					response = new String(packet.getData(),0, packet.getLength());
+					System.out.println(response);
+					switch(response) {
+						case "***":
+							connected = true;
+							break;
+						case "t":
+							System.out.println("T");
+							break;
+					}
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		});
 		sMessage.start();
+		try {
+			Thread.sleep(250);
+		} catch (Exception e) {
+
+		}
+	}
+
+	public boolean checkConnection() {
+		return connected;
 	}
 
 	public String sendEcho() throws IOException {

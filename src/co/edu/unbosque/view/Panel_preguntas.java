@@ -11,13 +11,18 @@ public class Panel_preguntas extends JPanel {
 
 	private JTextArea pregunta,p1,p2;
 	private JButton uno,dos,tres,cuatro,ayuda;
-	private JLabel punto1,fondo,punto2,a,b,c,d;
+	private JLabel punto1,fondo,punto2,a,b,c,d,tiempo;
 	private Icon icono,ico;
 	private ImageIcon imagen,im;
 	public final String UNO="UNO", DOS="DOS", TRES="TRES", CUATRO="CUATRO", AYUDA="AYUDA";
 	
 	public Panel_preguntas() {
 		setLayout(null);
+
+		tiempo= new JLabel("tiempo");
+		tiempo.setBounds(380,280,200,40);
+		tiempo.setForeground(Color.WHITE);
+		add(tiempo);
 		
 		pregunta= new JTextArea();
 		pregunta.setBounds(140,80,500,200);

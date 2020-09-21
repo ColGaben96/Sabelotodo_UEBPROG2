@@ -33,7 +33,7 @@ public class Panel_preguntas extends JPanel implements Runnable {
 		tiempo.setForeground(Color.WHITE);
 		add(tiempo);
 		
-		pregunta= new JTextArea("Esperando a otro jugaddor...");
+		pregunta= new JTextArea("Esperando a otro jugador...");
 		pregunta.setBounds(140,80,500,200);
 		pregunta.setEditable(false);
 		pregunta.setLineWrap(true);

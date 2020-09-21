@@ -131,4 +131,23 @@ public class MainView extends JFrame {
         getInGame().getCuatro().setText(questionStructure[4]);
 
     }
+
+    public void disableAnswers(int respuesta) {
+        if(respuesta == 1) {
+            getInGame().getTres().setEnabled(false);
+            getInGame().getDos().setEnabled(false);
+        }
+        else if(respuesta == 2) {
+            getInGame().getTres().setEnabled(false);
+            getInGame().getCuatro().setEnabled(false);
+        }
+        else if(respuesta == 3) {
+            getInGame().getUno().setEnabled(false);
+            getInGame().getCuatro().setEnabled(false);
+        }
+        else {
+            getInGame().getDos().setEnabled(false);
+            getInGame().getTres().setEnabled(false);
+        }
+    }
 }

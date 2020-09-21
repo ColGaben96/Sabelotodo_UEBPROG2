@@ -122,11 +122,11 @@ public class Server {
 					timer = new Timer(1000, new ActionListener() {
 						@Override
 						public void actionPerformed(ActionEvent e) {
-							/*try {
+							try {
 								sendMessageForAll("T");
 							} catch (IOException ioException) {
 								ioException.printStackTrace();
-							}*/
+							}
 						}
 					});
 					timer.start();

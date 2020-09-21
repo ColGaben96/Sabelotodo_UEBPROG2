@@ -245,22 +245,7 @@ public class Controller implements ActionListener {
 	 * @author Juan Pablo Araque
 	 */
 	public void eliminarOpcionesRespuesta(int respuesta) {
-		if(respuesta == 1) {
-			view.getInGame().getTres().setEnabled(false);
-			view.getInGame().getDos().setEnabled(false);
-		}
-		else if(respuesta == 2) {
-			view.getInGame().getTres().setEnabled(false);
-			view.getInGame().getCuatro().setEnabled(false);
-		}
-		else if(respuesta == 3) {
-			view.getInGame().getUno().setEnabled(false);
-			view.getInGame().getCuatro().setEnabled(false);
-		}
-		else {
-			view.getInGame().getDos().setEnabled(false);
-			view.getInGame().getTres().setEnabled(false);
-		}
+		view.disableAnswers(respuesta);
 	}
 
 	/**

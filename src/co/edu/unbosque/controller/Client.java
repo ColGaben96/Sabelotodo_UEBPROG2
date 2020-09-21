@@ -1,58 +1,70 @@
 package co.edu.unbosque.controller;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.*;
 import java.util.Scanner;
 
 public class Client {
-	private Socket socket = null;
-	DataInputStream in = null;
-	DataOutputStream out = null;
-	private Scanner sc = new Scanner(System.in);
 
-	public void run() {
+	private DatagramSocket socket;
+	private InetAddress address;
+	private byte[] buf;
+	private boolean connected = false;
+	private String myIP;
 
-		try {
-			IPControl control = new IPControl();
-			System.out.println("Please wait...");
-			socket = new Socket(control.PRODUCCION, 8888);
-			System.out.println("Connection Successful");
-			online();
-		} catch(SocketException badSocket) {
-			System.out.println("Check your internet connection and try again. "+badSocket.getMessage());
-			System.exit(1);
-		} catch (IOException io) {
-			System.out.println("Client has an unexpected error: "+io.getMessage());
-		}
-	}
 
-	public void online() throws IOException {
-		in = new DataInputStream(socket.getInputStream());
-		out = new DataOutputStream(socket.getOutputStream());
-		boolean listening = true;
-		String msg = null;
-		while(listening) {
-			msg = sc.nextLine();
-			if(msg.equals("quit")){
-				listening = false;
-				socket.close();
-			}
-			out.writeUTF(msg);
-			Thread listen = new Thread(() -> {
-				try {
-					System.out.println("Server: "+in.readUTF());
-				} catch (IOException e) {
-					System.out.print("Server: ");System.err.print("Oh noes! Server's down");
+	public void run(Controller c) throws IOException {
+		IPControl ip = new IPControl();
+		ip.checkIP();
+		myIP = ip.getIp();
+		Thread sMessage = new Thread(() -> {
+			try {
+				socket = new DatagramSocket();
+				buf = (myIP+": me conecte!").getBytes();
+				address = InetAddress.getByName("190.24.186.193");
+				socket.connect(address, 8888);
+				DatagramPacket packet = new DatagramPacket(buf, buf.length, address, 8888);
+				socket.send(packet);
+				buf = "wdfAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAbHIBCHWEFBHJFBHKDFDJKSBFKDFHDSBFHDBFKADBASBFHJADFBHJADBDHSBFDJASBFHJADFBHKDSBFHDSABFJADSBKFJBASKJDFBDASJKBFDJASKFBKJADSBKJDSBFDSABFDKSJ".getBytes();
+				packet = new DatagramPacket(buf, buf.length);
+				var response = "";
+				while (!(response.equals("!!!"))) {
+					socket.receive(packet);
+					response = new String(packet.getData(),0, packet.getLength());
+					System.out.println(response);
+					if(response.equals("***")) {
+						connected = true;
+					}
+					if(response.equals("T")) {
+						//System.out.println("t");
+					}
+					if(response.startsWith("Q:")) {
+						c.paintQuestions(response);
+					}
 				}
-			});
-			listen.start();
-			if(socket.isConnected()) {
-				listen.interrupt();
+				c.goMain();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
+		});
+		sMessage.start();
+		try {
+			Thread.sleep(250);
+		} catch (Exception e) {
+
 		}
-		socket.close();
-		System.out.println("Connection Terminated");
 	}
+
+	public boolean checkConnection() {
+		return connected;
+	}
+
+	public void sendResponse(String message) throws IOException {
+		buf = (myIP+": "+message).getBytes();
+		DatagramPacket packet = new DatagramPacket(buf, buf.length, address, 8888);
+		socket.send(packet);
+	}
+
 }

@@ -7,7 +7,7 @@ import java.awt.event.KeyListener;
 
 import javax.swing.*;
 
-public class Panel_preguntas extends JPanel {
+public class Panel_preguntas extends JPanel implements Runnable {
 
 	private JTextArea pregunta,p1,p2;
 	private JButton uno,dos,tres,cuatro,ayuda;
@@ -15,6 +15,7 @@ public class Panel_preguntas extends JPanel {
 	private Icon icono,ico;
 	private ImageIcon imagen,im;
 	public final String UNO="UNO", DOS="DOS", TRES="TRES", CUATRO="CUATRO", AYUDA="AYUDA";
+	private String question;
 	
 	public Panel_preguntas() {
 		setLayout(null);
@@ -24,7 +25,7 @@ public class Panel_preguntas extends JPanel {
 		tiempo.setForeground(Color.WHITE);
 		add(tiempo);
 		
-		pregunta= new JTextArea();
+		pregunta= new JTextArea("Esperando a otro jugaddor...");
 		pregunta.setBounds(140,80,500,200);
 		add(pregunta);
 		
@@ -51,7 +52,7 @@ public class Panel_preguntas extends JPanel {
 		a.setForeground(Color.WHITE);
 		add(a);
 		
-		uno= new JButton("");
+		uno= new JButton("Cargando...");
 		uno.setBounds(140,350,200,40);
 		uno.setActionCommand(UNO);
 		add(uno);
@@ -61,7 +62,7 @@ public class Panel_preguntas extends JPanel {
 		b.setForeground(Color.WHITE);
 		add(b);
 		
-		dos= new JButton("");
+		dos= new JButton("Cargando...");
 		dos.setBounds(440,350,200,40);
 		dos.setActionCommand(DOS);
 		add(dos);
@@ -71,7 +72,7 @@ public class Panel_preguntas extends JPanel {
 		c.setForeground(Color.WHITE);
 		add(c);
 		
-		tres= new JButton("");
+		tres= new JButton("Cargando...");
 		tres.setBounds(140,430,200,40);
 		tres.setActionCommand(TRES);
 		add(tres);
@@ -81,7 +82,7 @@ public class Panel_preguntas extends JPanel {
 		d.setForeground(Color.WHITE);
 		add(d);
 		
-		cuatro= new JButton("");
+		cuatro= new JButton("Cargando...");
 		cuatro.setBounds(440,430,200,40);
 		cuatro.setActionCommand(CUATRO);
 		add(cuatro);
@@ -136,5 +137,56 @@ public class Panel_preguntas extends JPanel {
 
 	public JButton getCuatro() {
 		return cuatro;
+	}
+
+	public void setPregunta(JTextArea pregunta) {
+		this.pregunta = pregunta;
+	}
+
+	public void setP1(JTextArea p1) {
+		this.p1 = p1;
+	}
+
+	public void setP2(JTextArea p2) {
+		this.p2 = p2;
+	}
+
+	public void setUno(JButton uno) {
+		this.uno = uno;
+	}
+
+	public void setDos(JButton dos) {
+		this.dos = dos;
+	}
+
+	public void setTres(JButton tres) {
+		this.tres = tres;
+	}
+
+	public void setCuatro(JButton cuatro) {
+		this.cuatro = cuatro;
+	}
+
+	public synchronized void paintQuestions(String question) {
+		this.question=question;
+		SwingUtilities.invokeLater(this);
+		try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void run() {
+		var questionStructure = question.split(";");
+		setPregunta(new JTextArea(questionStructure[0]));
+		uno.setText(questionStructure[1]);
+		dos.setText(questionStructure[2]);
+		tres.setText(questionStructure[3]);
+		cuatro.setText(questionStructure[4]);
+		validate();
+		repaint();
+		invalidate();
 	}
 }

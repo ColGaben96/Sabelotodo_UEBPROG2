@@ -14,13 +14,12 @@ public class Client {
 	private boolean connected = false;
 
 
-	public void run() throws IOException {
+	public void run(Controller c) throws IOException {
 		Thread sMessage = new Thread(() -> {
 			try {
-				Controller c = new Controller();
 				socket = new DatagramSocket();
 				buf = "me conecte!".getBytes();
-				address = InetAddress.getByName("186.154.177.154");
+				address = InetAddress.getByName("190.24.186.193");
 				socket.connect(address, 8888);
 				DatagramPacket packet = new DatagramPacket(buf, buf.length, address, 8888);
 				socket.send(packet);
@@ -38,7 +37,7 @@ public class Client {
 						System.out.println("t");
 					}
 					if(response.startsWith("Q:")) {
-
+						c.paintQuestions(response);
 					}
 				}
 			} catch (IOException e) {

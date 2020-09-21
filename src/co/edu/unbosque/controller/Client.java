@@ -27,7 +27,7 @@ public class Client {
 				socket.connect(address, 8888);
 				DatagramPacket packet = new DatagramPacket(buf, buf.length, address, 8888);
 				socket.send(packet);
-				buf = "wdfbHIBCHWEFBHJFBHKDFDJKSBFKDFHDSBFHDBFKADBASBFHJADFBHJADBDHSBFDJASBFHJADFBHKDSBFHDSABFJADSBKFJBASKJDFBDASJKBFDJASKFBKJADSBKJDSBFDSABFDKSJ".getBytes();
+				buf = "wdfAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAbHIBCHWEFBHJFBHKDFDJKSBFKDFHDSBFHDBFKADBASBFHJADFBHJADBDHSBFDJASBFHJADFBHKDSBFHDSABFJADSBKFJBASKJDFBDASJKBFDJASKFBKJADSBKJDSBFDSABFDKSJ".getBytes();
 				packet = new DatagramPacket(buf, buf.length);
 				var response = "";
 				while (!(response.equals("!!!"))) {
@@ -38,12 +38,13 @@ public class Client {
 						connected = true;
 					}
 					if(response.equals("T")) {
-						System.out.println("t");
+						//System.out.println("t");
 					}
 					if(response.startsWith("Q:")) {
 						c.paintQuestions(response);
 					}
 				}
+				c.goMain();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -64,10 +65,6 @@ public class Client {
 		buf = (myIP+": "+message).getBytes();
 		DatagramPacket packet = new DatagramPacket(buf, buf.length, address, 8888);
 		socket.send(packet);
-	}
-
-	public void close() {
-		socket.close();
 	}
 
 }

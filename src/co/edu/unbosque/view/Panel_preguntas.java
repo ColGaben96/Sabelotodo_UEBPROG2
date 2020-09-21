@@ -1,9 +1,10 @@
 package co.edu.unbosque.view;
 
-import java.awt.Color;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
+import java.io.IOException;
 
 import javax.swing.*;
 
@@ -28,24 +29,34 @@ public class Panel_preguntas extends JPanel implements Runnable {
 		pregunta= new JTextArea("Esperando a otro jugaddor...");
 		pregunta.setBounds(140,80,500,200);
 		pregunta.setEditable(false);
+		pregunta.setLineWrap(true);
+		pregunta.setWrapStyleWord(true);
+		try {
+			Font arial = Font.createFont(Font.TRUETYPE_FONT, new File("./sysfiles/ROCK.TTF")).deriveFont(24f);
+			pregunta.setFont(arial);
+		} catch (FontFormatException | IOException e) {
+			e.printStackTrace();
+		}
 		add(pregunta);
 		
-		punto1= new JLabel("Puntos jugador1");
+		punto1= new JLabel("TU");
 		punto1.setBounds(200,20,100,40);
 		punto1.setForeground(Color.WHITE);
+		punto1.setBackground(new Color(36,38,43));
 		add(punto1);
 		
-		p1= new JTextArea();
+		p1= new JTextArea("0");
 		p1.setBounds(300,30,20,20);
 		p1.setEditable(false);
 		add(p1);
 		
-		punto2= new JLabel("Puntos jugador2");
+		punto2= new JLabel("CONTRINCANTE");
 		punto2.setBounds(400,20,100,40);
+		punto2.setBackground(new Color(36,38,43));
 		punto2.setForeground(Color.WHITE);
 		add(punto2);
 		
-		p2= new JTextArea();
+		p2= new JTextArea("0");
 		p2.setBounds(500,30,20,20);
 		p2.setEditable(false);
 		add(p2);
@@ -53,7 +64,7 @@ public class Panel_preguntas extends JPanel implements Runnable {
 		a= new JLabel("A.");
 		a.setBounds(140,310,200,40);
 		a.setForeground(Color.WHITE);
-		add(a);
+		//add(a);
 		
 		uno= new JButton("Cargando...");
 		uno.setBounds(140,350,200,40);
@@ -63,7 +74,7 @@ public class Panel_preguntas extends JPanel implements Runnable {
 		b= new JLabel("B.");
 		b.setBounds(440,310,200,40);
 		b.setForeground(Color.WHITE);
-		add(b);
+		//add(b);
 		
 		dos= new JButton("Cargando...");
 		dos.setBounds(440,350,200,40);
@@ -73,7 +84,7 @@ public class Panel_preguntas extends JPanel implements Runnable {
 		c= new JLabel("C.");
 		c.setBounds(140,400,200,40);
 		c.setForeground(Color.WHITE);
-		add(c);
+		//add(c);
 		
 		tres= new JButton("Cargando...");
 		tres.setBounds(140,430,200,40);
@@ -83,7 +94,7 @@ public class Panel_preguntas extends JPanel implements Runnable {
 		d= new JLabel("D.");
 		d.setBounds(440,400,200,40);
 		d.setForeground(Color.WHITE);
-		add(d);
+		//add(d);
 		
 		cuatro= new JButton("Cargando...");
 		cuatro.setBounds(440,430,200,40);

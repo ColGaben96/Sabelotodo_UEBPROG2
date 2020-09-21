@@ -117,7 +117,7 @@ public class Controller implements ActionListener {
 			if(client.checkConnection()) {
 				view.goGame();
 			} else {
-				JOptionPane.showMessageDialog(null, "Verifica tu conexion a internet y prueba nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Verifica tu conexion a internet y e intenta nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 		}
 		if(e.getActionCommand().equals(view.getMainMenu().SALIR)) {
@@ -125,46 +125,66 @@ public class Controller implements ActionListener {
 		}
 		if(e.getActionCommand().equals(view.getInGame().UNO)) {
 			if(client.checkConnection()) {
-
+				try {
+					client.sendResponse("A:1");
+				} catch (IOException ioException) {
+					ioException.printStackTrace();
+				}
 			} else {
 				view.goMain();
-				JOptionPane.showMessageDialog(null, "Verifica tu conexion a internet y prueba nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Verifica tu conexion a internet y e intenta nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 
 		}
 		if(e.getActionCommand().equals(view.getInGame().DOS)) {
 			if(client.checkConnection()) {
-
+				try {
+					client.sendResponse("A:2");
+				} catch (IOException ioException) {
+					ioException.printStackTrace();
+				}
 			} else {
 				view.goMain();
-				JOptionPane.showMessageDialog(null, "Verifica tu conexion a internet y prueba nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Verifica tu conexion a internet y e intenta nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 
 		}
 		if(e.getActionCommand().equals(view.getInGame().TRES)) {
 			if(client.checkConnection()) {
-
+				try {
+					client.sendResponse("A:3");
+				} catch (IOException ioException) {
+					ioException.printStackTrace();
+				}
 			} else {
 				view.goMain();
-				JOptionPane.showMessageDialog(null, "Verifica tu conexion a internet y prueba nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Verifica tu conexion a internet y e intenta nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 
 		}
 		if(e.getActionCommand().equals(view.getInGame().CUATRO)) {
 			if(client.checkConnection()) {
-
+				try {
+					client.sendResponse("A:4");
+				} catch (IOException ioException) {
+					ioException.printStackTrace();
+				}
 			} else {
 				view.goMain();
-				JOptionPane.showMessageDialog(null, "Verifica tu conexion a internet y prueba nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Verifica tu conexion a internet y e intenta nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 
 		}
 		if(e.getActionCommand().equals(view.getInGame().AYUDA)) {
 			if(client.checkConnection()) {
-
+				try {
+					client.sendResponse("H:");
+				} catch (IOException ioException) {
+					ioException.printStackTrace();
+				}
 			} else {
 				view.goMain();
-				JOptionPane.showMessageDialog(null, "Verifica tu conexion a internet y prueba nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "Verifica tu conexion a internet y e intenta nuevamente", "Error", JOptionPane.ERROR_MESSAGE);
 			}
 
 		}
@@ -177,7 +197,15 @@ public class Controller implements ActionListener {
 		view.refreshGame(question);
 	}
 
+	public boolean checkAnswer(int answer) {
+		return model.checkAnswer(answer);
+	}
+
 	public void openQuestionsFile() throws IOException {
 		model.startServer();
+	}
+
+	public void goMain() {
+		view.goMain();
 	}
 }

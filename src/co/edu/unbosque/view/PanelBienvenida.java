@@ -11,6 +11,10 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * @author Sebastian Cubillos
+ * @version 1.0
+ */
 public class PanelBienvenida extends JPanel{
 	
 	private JButton botonJugar;
@@ -20,7 +24,10 @@ public class PanelBienvenida extends JPanel{
 	private Icon icono;
 	private JLabel etiquetaImagen;
 	public final String JUGAR = "JUGAR", SALIR = "SALIR";
-	
+
+	/**
+	 * @author Sebastian Cubillos
+	 */
 	public PanelBienvenida() {
 		
 		setLayout(null);

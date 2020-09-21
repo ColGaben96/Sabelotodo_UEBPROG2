@@ -8,12 +8,19 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * @author Laura Chiquillo
+ * @version 1.0
+ */
 public class Panel_ganador extends JPanel{
 
 	private ImageIcon imagen;
 	private Icon icono;
 	private JLabel texto,fondo;
-	
+
+	/**
+	 * @author Laura Chiquillo
+	 */
 	public Panel_ganador() {
 		setLayout(null);
 		

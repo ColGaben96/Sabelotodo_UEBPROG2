@@ -6,9 +6,13 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.*;
 import java.util.ArrayList;
-import java.util.Queue;
-import java.util.Scanner;
 
+/**
+ * <h1>Description:</h1><br>
+ *     <p>Class where the magic literally happens</p>
+ * @author Gabriel Blanco
+ * @version 1.0
+ */
 public class Server {
 
 	private DatagramSocket socket;
@@ -18,12 +22,27 @@ public class Server {
 	private Timer timer;
 	private int counter = 0;
 
+	/**
+	 * <h1>Description:</h1>
+	 * <p>Method where server checks it's ip</p>
+	 * @author Gabriel Blanco
+	 * @return
+	 * @throws IOException
+	 */
 	public String checkIP() throws IOException {
 		IPControl ipControl = new IPControl();
 		ipControl.checkIP();
 		return ipControl.getIp();
 	}
 
+	/**
+	 * <h1>Description:</h1><br>
+	 *     <p>Method where server can send a message to specific client</p>
+	 * @author Gabriel Blanco
+	 * @param message
+	 * @param addressPair
+	 * @throws IOException
+	 */
 	public void sendMessage(String message, AddressPair addressPair) throws IOException {
 		var buf2 = message.getBytes();
 		DatagramPacket packet2
@@ -32,6 +51,13 @@ public class Server {
 		socket.send(packet2);
 	}
 
+	/**
+	 * <h1>Description:</h1><br>
+	 * <p>Method where server can send to everyone</p>
+	 * @author Gabriel Blanco
+	 * @param message
+	 * @throws IOException
+	 */
 	public void sendMessageForAll(String message) throws IOException {
 		var buf2 = message.getBytes();
 		for (AddressPair addressPair: addresses) {
@@ -44,6 +70,13 @@ public class Server {
 		}
 	}
 
+	/**
+	 * <h1>Description:</h1><br>
+	 * <p>Method where the magic comes true</p>
+	 * @author Gabriel Blanco
+	 * @throws IOException
+	 * @throws InterruptedException
+	 */
 	public void run() throws IOException, InterruptedException {
 		Controller controller = new Controller();
 		socket = new DatagramSocket(8888);
@@ -93,6 +126,13 @@ public class Server {
 		listenT.start();
 	}
 
+	/**
+	 * <h1>Description:</h1><br>
+	 *     <p>Method where 2 clients are deleted</p>
+	 * @author Gabriel Blanco
+	 * @param address1
+	 * @param address2
+	 */
 	public void removeAddressesFromList(AddressPair address1, AddressPair address2) {
 		for (AddressPair addressPair: addresses) {
 			if(addressPair.getAddress() == address1.getAddress()) {

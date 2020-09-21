@@ -2,12 +2,22 @@ package co.edu.unbosque.model.persistence;
 
 import co.edu.unbosque.model.Pregunta;
 
+/**
+ * @author Gabriel Blanco
+ * @version 1.0
+ */
 public class PreguntaDTO implements Pregunta {
 
     private String titulo;
     private String[] pregunta;
     private int respuesta;
 
+    /**
+     * @author Gabriel Blanco
+     * @param titulo
+     * @param pregunta
+     * @param respuesta
+     */
     public PreguntaDTO(String titulo, String[] pregunta, int respuesta) {
         this.titulo = titulo;
         this.pregunta = pregunta;

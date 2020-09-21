@@ -5,11 +5,22 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
+/**
+ * <h1>Description</h1>
+ * <p>This class is intended for client's uses. Literally is just to check their's IP</p>
+ * @author Gabriel Blanco
+ * @version 1.0
+ */
 public class IPControl {
     private String ip = "";
-    public static final String PRODUCCION = "186.28.58.158";
     public final String PRUEBAS = "127.0.0.1";
 
+    /**
+     * <h1>Description</h1><br>
+     * <p>Method to check IP</p>
+     * @author Gabriel Blanco
+     * @throws IOException
+     */
     public void checkIP() throws IOException {
         try {
             URL amazonIP = new URL("https://checkip.amazonaws.com/");

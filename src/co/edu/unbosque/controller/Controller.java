@@ -189,22 +189,54 @@ public class Controller implements ActionListener {
 
 		}
 	}
+
+	/**
+	 * <h1>Description</h1><br>
+	 *     <p><b>CAUTION:</b> This method is only for server use <br>
+	 *        This method checks from a DAO and return the info just to print it in the client</p>
+	 * @author Gabriel Blanco
+	 * @return
+	 */
 	public String serverReadQuestion() {
 		return model.getQuestion();
 	}
-
+	/**
+	 * <h1>Description</h1><br>
+	 *     <p><b>CAUTION:</b> This method is only for server use <br>
+	 *        This method prints the question with the server's info</p>
+	 * @author Gabriel Blanco
+	 * @return
+	 */
 	public void paintQuestions(String question) {
 		view.refreshGame(question);
 	}
-
+	/**
+	 * <h1>Description</h1><br>
+	 *     <p><b>CAUTION:</b> This method is only for server use <br>
+	 *        This method checks the validation of the answers.</p>
+	 * @author Gabriel Blanco
+	 * @return
+	 */
 	public boolean checkAnswer(int answer) {
 		return model.checkAnswer(answer);
 	}
-
+	/**
+	 * <h1>Description</h1><br>
+	 *     <p><b>CAUTION:</b> This method is only for server use <br>
+	 *        This method opens a file which contains all the questions</p>
+	 * @author Gabriel Blanco
+	 * @return
+	 */
 	public void openQuestionsFile() throws IOException {
 		model.startServer();
 	}
-
+	/**
+	 * <h1>Description</h1><br>
+	 *     <p><b>CAUTION:</b> This method is only for client use <br>
+	 *        This method checks from a DAO and return the info just to print it in the client</p>
+	 * @author Gabriel Blanco
+	 * @return
+	 */
 	public void goMain() {
 		view.goMain();
 	}

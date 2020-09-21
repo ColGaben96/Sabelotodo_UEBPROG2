@@ -1,7 +1,18 @@
 package co.edu.unbosque.model.persistence;
 import java.io.*;
-public class Archivos {
 
+/**
+ * @author Gabriel Blanco
+ * @version 1.0
+ */
+public class Archivos {
+    /**
+     * <h1>Description:</h1><br>
+     *     <p>Method to read the file</p>
+     * @author Gabriel Blanco
+     * @return
+     * @throws IOException
+     */
     public String read() throws IOException{
         File f = new File("./sysfiles/Fragen.sabelotodo");
         FileReader fr = new FileReader(f);

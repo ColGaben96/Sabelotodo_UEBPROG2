@@ -7,12 +7,19 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/**
+ * @author Laura Chiquillo
+ * @version 1.0
+ */
 public class Panel_empate extends JPanel{
 
 	private ImageIcon imagen;
 	private Icon icono;
 	private JLabel fondo;
-	
+
+	/**
+	 * @author Laura Chiquillo
+	 */
 	public Panel_empate() {
 		setLayout(null);
 		

@@ -8,6 +8,10 @@ import java.io.IOException;
 
 import javax.swing.*;
 
+/**
+ * @author Laura Chiquillo
+ * @version 1.0
+ */
 public class Panel_preguntas extends JPanel implements Runnable {
 
 	private JTextArea pregunta,p1,p2;
@@ -17,7 +21,10 @@ public class Panel_preguntas extends JPanel implements Runnable {
 	private ImageIcon imagen,im;
 	public final String UNO="UNO", DOS="DOS", TRES="TRES", CUATRO="CUATRO", AYUDA="AYUDA";
 	private String question;
-	
+
+	/**
+	 * @author Laura Chiquillo
+	 */
 	public Panel_preguntas() {
 		setLayout(null);
 

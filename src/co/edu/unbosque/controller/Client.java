@@ -12,13 +12,17 @@ public class Client {
 	private InetAddress address;
 	private byte[] buf;
 	private boolean connected = false;
+	private String myIP;
 
 
 	public void run(Controller c) throws IOException {
+		IPControl ip = new IPControl();
+		ip.checkIP();
+		myIP = ip.getIp();
 		Thread sMessage = new Thread(() -> {
 			try {
 				socket = new DatagramSocket();
-				buf = "me conecte!".getBytes();
+				buf = (myIP+": me conecte!").getBytes();
 				address = InetAddress.getByName("190.24.186.193");
 				socket.connect(address, 8888);
 				DatagramPacket packet = new DatagramPacket(buf, buf.length, address, 8888);
@@ -56,22 +60,10 @@ public class Client {
 		return connected;
 	}
 
-	public String sendEcho() throws IOException {
-		Scanner sc= new Scanner(System.in); //System.in is a standard input stream
-		System.out.print("Enter a string: ");
-		String str= sc.nextLine();
-		buf = str.getBytes();
-		DatagramPacket packet
-				= new DatagramPacket(buf, buf.length, address, 8888);
+	public void sendResponse(String message) throws IOException {
+		buf = (myIP+": "+message).getBytes();
+		DatagramPacket packet = new DatagramPacket(buf, buf.length, address, 8888);
 		socket.send(packet);
-
-		str= sc.nextLine();
-		packet = new DatagramPacket(buf, buf.length);
-		socket.receive(packet);
-		String received = new String(
-				packet.getData(), 0, packet.getLength());
-		System.out.println(received);
-		return received;
 	}
 
 	public void close() {

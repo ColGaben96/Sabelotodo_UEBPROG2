@@ -27,6 +27,7 @@ public class Panel_preguntas extends JPanel implements Runnable {
 		
 		pregunta= new JTextArea("Esperando a otro jugaddor...");
 		pregunta.setBounds(140,80,500,200);
+		pregunta.setEditable(false);
 		add(pregunta);
 		
 		punto1= new JLabel("Puntos jugador1");
@@ -36,6 +37,7 @@ public class Panel_preguntas extends JPanel implements Runnable {
 		
 		p1= new JTextArea();
 		p1.setBounds(300,30,20,20);
+		p1.setEditable(false);
 		add(p1);
 		
 		punto2= new JLabel("Puntos jugador2");
@@ -45,6 +47,7 @@ public class Panel_preguntas extends JPanel implements Runnable {
 		
 		p2= new JTextArea();
 		p2.setBounds(500,30,20,20);
+		p2.setEditable(false);
 		add(p2);
 		
 		a= new JLabel("A.");

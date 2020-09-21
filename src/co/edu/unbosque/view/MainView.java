@@ -123,7 +123,7 @@ public class MainView extends JFrame {
      */
     public void refreshGame(String question) {
         var questionResponse = question.split("Q:");
-        var questionStructure = questionResponse[0].split(";");
+        var questionStructure = questionResponse[1].split(";");
         getInGame().getPregunta().setText(questionStructure[0]);
         getInGame().getUno().setText(questionStructure[1]);
         getInGame().getDos().setText(questionStructure[2]);

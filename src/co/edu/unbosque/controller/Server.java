@@ -10,7 +10,7 @@ import java.util.ArrayList;
 /**
  * <h1>Description:</h1><br>
  *     <p>Class where the magic literally happens</p>
- * @author Gabriel Blanco
+ * @author Gabriel Blanco - Juan Pablo Araque
  * @version 1.0
  */
 public class Server {
@@ -21,6 +21,7 @@ public class Server {
 	private ArrayList<AddressPair> addresses = new ArrayList<>();
 	private Timer timer;
 	private int counter = 0;
+	private int contAyuda=0;
 
 	/**
 	 * <h1>Description:</h1>
@@ -73,7 +74,7 @@ public class Server {
 	/**
 	 * <h1>Description:</h1><br>
 	 * <p>Method where the magic comes true</p>
-	 * @author Gabriel Blanco
+	 * @author Gabriel Blanco - Juan Pablo Araque
 	 * @throws IOException
 	 * @throws InterruptedException
 	 */
@@ -99,6 +100,10 @@ public class Server {
 						var ans = client.split(":");
 						sendMessageForAll("SR-"+ans[0]+":"+controller.checkAnswer(Integer.parseInt(ans[2])));
 						counter++;
+					}
+					if(client.contains("H:")) {
+						controller.eliminarOpcionesRespuesta();
+						contAyuda++;
 					}
 					var addressPair = new AddressPair(packet.getAddress(),
 							packet.getPort(), addresses.size() < 2);
@@ -148,5 +153,22 @@ public class Server {
 		} else if(addresses.size() == 1) {
 			addresses.get(0).setPlaying(true);
 		}
+	}
+
+	/**
+	 * @author Juan Pablo Araque
+	 * @param puntaje
+	 * @param correcto
+	 * @return
+	 */
+	public int calcularPuntaje(int puntaje,boolean correcto) {
+		if(correcto && contAyuda==0)
+			return 3;
+		else if(correcto && contAyuda==1)
+			return 1;
+		else if(!correcto && puntaje>0)
+			return -2;
+		else
+			return 0;
 	}
 }

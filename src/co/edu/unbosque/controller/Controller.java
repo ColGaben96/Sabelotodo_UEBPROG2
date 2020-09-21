@@ -240,4 +240,26 @@ public class Controller implements ActionListener {
 	public void goMain() {
 		view.goMain();
 	}
+
+	/**
+	 * @author Juan Pablo Araque
+	 */
+	public void eliminarOpcionesRespuesta() {
+		if(model.getRespuestaCorrecta()==1) {
+			view.getInGame().getTres().setVisible(false);
+			view.getInGame().getDos().setVisible(false);
+		}
+		else if(model.getRespuestaCorrecta()==2) {
+			view.getInGame().getTres().setVisible(false);
+			view.getInGame().getCuatro().setVisible(false);
+		}
+		else if(model.getRespuestaCorrecta()==3) {
+			view.getInGame().getUno().setVisible(false);
+			view.getInGame().getCuatro().setVisible(false);
+		}
+		else {
+			view.getInGame().getDos().setVisible(false);
+			view.getInGame().getTres().setVisible(false);
+		}
+	}
 }

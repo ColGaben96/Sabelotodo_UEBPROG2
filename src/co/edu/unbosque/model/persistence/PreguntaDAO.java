@@ -6,7 +6,7 @@ import java.util.Random;
 /**
  * <h1>Description:</h1><br>
  *     <p>DAO for Pregunta</p>
- * @author Gabriel Blanco
+ * @author Gabriel Blanco - Juan Pablo Araque
  * @version 1.0
  */
 public class PreguntaDAO {
@@ -65,5 +65,13 @@ public class PreguntaDAO {
         } else {
             return false;
         }
+    }
+
+    /**
+     * @author Juan Pablo Araque
+     * @return
+     */
+    public int respuestaCorrecta() {
+        return pregunta.get(numPregunta).getRespuesta();
     }
 }

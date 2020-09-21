@@ -69,6 +69,14 @@ public class Sabelotodo {
         return pregunta.readPregunta(cantPreguntas);
     }
 
+    /**
+     * @author Juan Pablo Araque
+     * @return
+     */
+    public int getRespuestaCorrecta() {
+        return pregunta.respuestaCorrecta();
+    }
+
     public Jugador getJugador1() {
         return jugador1;
     }

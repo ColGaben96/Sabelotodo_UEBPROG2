@@ -56,6 +56,10 @@ public class Client {
 					if(response.startsWith("Q:")) {
 						c.paintQuestions(response);
 					}
+					if(response.contains("HP:")) {
+						var responseStructure = response.split("HP:");
+						c.eliminarOpcionesRespuesta(Integer.parseInt(responseStructure[0]));
+					}
 				}
 				c.goMain();
 			} catch (IOException e) {

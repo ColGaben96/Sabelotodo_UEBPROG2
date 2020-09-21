@@ -102,7 +102,12 @@ public class Server {
 						counter++;
 					}
 					if(client.contains("H:")) {
-						controller.eliminarOpcionesRespuesta();
+						var clientStructure = client.split(":");
+						if(clientStructure[0].equals(String.valueOf(addresses.get(0)))) {
+							sendMessage("HP:"+controller.getRespuesta(), addresses.get(0));
+						} else {
+							sendMessage("HP:"+controller.getRespuesta(), addresses.get(1));
+						}
 						contAyuda++;
 					}
 					var addressPair = new AddressPair(packet.getAddress(),

@@ -244,22 +244,29 @@ public class Controller implements ActionListener {
 	/**
 	 * @author Juan Pablo Araque
 	 */
-	public void eliminarOpcionesRespuesta() {
-		if(model.getRespuestaCorrecta()==1) {
-			view.getInGame().getTres().setVisible(false);
-			view.getInGame().getDos().setVisible(false);
+	public void eliminarOpcionesRespuesta(int respuesta) {
+		if(respuesta == 1) {
+			view.getInGame().getTres().setEnabled(false);
+			view.getInGame().getDos().setEnabled(false);
 		}
-		else if(model.getRespuestaCorrecta()==2) {
-			view.getInGame().getTres().setVisible(false);
-			view.getInGame().getCuatro().setVisible(false);
+		else if(respuesta == 2) {
+			view.getInGame().getTres().setEnabled(false);
+			view.getInGame().getCuatro().setEnabled(false);
 		}
-		else if(model.getRespuestaCorrecta()==3) {
-			view.getInGame().getUno().setVisible(false);
-			view.getInGame().getCuatro().setVisible(false);
+		else if(respuesta == 3) {
+			view.getInGame().getUno().setEnabled(false);
+			view.getInGame().getCuatro().setEnabled(false);
 		}
 		else {
-			view.getInGame().getDos().setVisible(false);
-			view.getInGame().getTres().setVisible(false);
+			view.getInGame().getDos().setEnabled(false);
+			view.getInGame().getTres().setEnabled(false);
 		}
+	}
+
+	/**
+	 * @author Gabriel Blanco
+	 */
+	public int getRespuesta() {
+		return model.getRespuestaCorrecta();
 	}
 }

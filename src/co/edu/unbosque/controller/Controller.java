@@ -21,7 +21,7 @@ public class Controller implements ActionListener {
 	private Client client = new Client();
 	private Server server = new Server();
 	private Sabelotodo model = new Sabelotodo();
-	private MainView view = new MainView();
+	public MainView view = new MainView();
 
 	
 	/**
@@ -110,7 +110,7 @@ public class Controller implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if(e.getActionCommand().equals(view.getMainMenu().JUGAR)) {
 			try {
-				client.run();
+				client.run(this);
 			} catch (IOException ioException) {
 				ioException.printStackTrace();
 			}
@@ -174,13 +174,7 @@ public class Controller implements ActionListener {
 	}
 
 	public void paintQuestions(String question) {
-		var questionStructure = question.split(";");
-		view.getInGame().getPregunta().setText(questionStructure[0]);
-		view.getInGame().getUno().setText(questionStructure[1]);
-		view.getInGame().getDos().setText(questionStructure[2]);
-		view.getInGame().getTres().setText(questionStructure[3]);
-		view.getInGame().getCuatro().setText(questionStructure[4]);
-
+		view.refreshGame(question);
 	}
 
 	public void openQuestionsFile() throws IOException {

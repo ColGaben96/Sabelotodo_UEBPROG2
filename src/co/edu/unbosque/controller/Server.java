@@ -52,26 +52,25 @@ public class Server {
 					DatagramPacket packet
 							= new DatagramPacket(buf, buf.length);
 					socket.receive(packet);
-					System.out.println("Connected: "+packet.getAddress());
+					var client = new String(packet.getData(), 0, packet.getLength());
+					System.out.println(client);
 					var addressPair = new AddressPair(packet.getAddress(), packet.getPort());
 					addresses.add(addressPair);
 					sendMessage("***", addressPair);
-					if(addresses.size() ==2) {
-						System.out.println("ya pueden jugar");
-						var question = controller.serverReadQuestion();
-						sendMessageForAll("Q:"+question);
-						timer = new Timer(1000, new ActionListener() {
-							@Override
-							public void actionPerformed(ActionEvent e) {
-								try {
-									sendMessageForAll("t");
-								} catch (IOException ioException) {
-									ioException.printStackTrace();
-								}
+					var question = controller.serverReadQuestion();
+					sendMessageForAll("Q:"+question);
+					controller.paintQuestions(question);
+					timer = new Timer(1000, new ActionListener() {
+						@Override
+						public void actionPerformed(ActionEvent e) {
+							try {
+								sendMessageForAll("T");
+							} catch (IOException ioException) {
+								ioException.printStackTrace();
 							}
-						});
-						timer.start();
-					}
+						}
+					});
+					timer.start();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

@@ -113,8 +113,8 @@ public class Server {
 					var addressPair = new AddressPair(packet.getAddress(),
 							packet.getPort(), addresses.size() < 2);
 					addresses.add(addressPair);
+					sendMessage("***", addressPair);
 					if(addresses.size() % 2 == 0) {
-						sendMessage("***", addressPair);
 						var question = controller.serverReadQuestion();
 						sendMessageForAll("Q:"+question);
 						controller.paintQuestions(question);
